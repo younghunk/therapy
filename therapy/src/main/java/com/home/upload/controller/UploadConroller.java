@@ -54,9 +54,13 @@ public class UploadConroller {
             // 실제 파일 이름 IE나 Edge는 전체 경로가 들어오므로 => 바뀐 듯 ..
             String orginalName = uploadFile.getOriginalFilename();
             assert orginalName != null;
-            String fileName = orginalName.substring(orginalName.lastIndexOf("\\") + 1);
+//            String fileName = orginalName.substring(orginalName.lastIndexOf("\\") + 1);
+            String ext = orginalName.substring(orginalName.lastIndexOf(".") + 1);//확장자
+            String fileName = "one."+ext;
 
-            log.debug("fileName: "+fileName);
+            log.info("fileName: "+fileName);
+            log.info("fileName2: "+fileName.substring(orginalName.lastIndexOf(".") + 1));
+            log.info("fileName2: "+fileName.substring(0,orginalName.lastIndexOf(".")));
 
             // 날짜 폴더 생성
             String folderPath = makeFolder();
@@ -65,7 +69,8 @@ public class UploadConroller {
             String uuid = UUID.randomUUID().toString();
 
             // 저장할 파일 이름 중간에 "_"를 이용해서 구현
-            String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
+//            String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
+            String saveName = uploadPath + File.separator + fileName;
 
             Path savePath = Paths.get(saveName);
 

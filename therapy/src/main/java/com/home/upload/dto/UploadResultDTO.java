@@ -16,7 +16,8 @@ public class UploadResultDTO implements Serializable{
     private String folderPath;
 
     public String getImageURL() {
-        return URLEncoder.encode(folderPath+"/"+uuid+"_"+fileName, StandardCharsets.UTF_8);
+//        return URLEncoder.encode(folderPath+"/"+uuid+"_"+fileName, StandardCharsets.UTF_8);
+        return URLEncoder.encode(fileName, StandardCharsets.UTF_8);
     }
     public String getThumbnailURL() {
         return URLEncoder.encode(folderPath + "/s_" + uuid + "_" + fileName, StandardCharsets.UTF_8);
