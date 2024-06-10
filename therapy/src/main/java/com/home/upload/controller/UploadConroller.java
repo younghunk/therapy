@@ -1,6 +1,8 @@
 package com.home.upload.controller;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -21,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,59 +42,67 @@ public class UploadConroller {
 	
 	/*파일 업로드, 업로드 결과 반환*/
     @PostMapping("/uploadAjax")
-    public ResponseEntity<List<UploadResultDTO>> uploadFile(MultipartFile[] uploadFiles) {
-    	log.info(">>>>>>>>>>>Start>>>>>>>>>>>");
+    public ResponseEntity<List<UploadResultDTO>> uploadFile(MultipartFile[] uploadFiles,@RequestParam String content) {
+    	log.info(">>>>>>>>>>>Start>>>>>>>>>>>"+content);
+    	
+    	fileMake("one.text",content);
         List<UploadResultDTO> resultDTOList = new ArrayList<>();
-
-        for (MultipartFile uploadFile: uploadFiles) {
-
-            // 이미지 파일만 업로드
-            if (!Objects.requireNonNull(uploadFile.getContentType()).startsWith("image")) {
-                log.warn("this file is not image type");
-                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-            }
-
-            // 실제 파일 이름 IE나 Edge는 전체 경로가 들어오므로 => 바뀐 듯 ..
-            String orginalName = uploadFile.getOriginalFilename();
-            assert orginalName != null;
-//            String fileName = orginalName.substring(orginalName.lastIndexOf("\\") + 1);
-            String ext = orginalName.substring(orginalName.lastIndexOf(".") + 1);//확장자
-            String fileName = "one."+ext;
-
-            log.info("fileName: "+fileName);
-            log.info("fileName2: "+fileName.substring(orginalName.lastIndexOf(".") + 1));
-            log.info("fileName2: "+fileName.substring(0,orginalName.lastIndexOf(".")));
-
-            // 날짜 폴더 생성
-            String folderPath = makeFolder();
-
-            // UUID
-            String uuid = UUID.randomUUID().toString();
-
-            // 저장할 파일 이름 중간에 "_"를 이용해서 구현
-//            String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
-            String saveName = uploadPath + File.separator + fileName;
-
-            Path savePath = Paths.get(saveName);
-
-            try {
-                uploadFile.transferTo(savePath); // 실제 이미지 저장
-                
-                // 섬네일 생성
-                String thumbnailSaveName = uploadPath + File.separator + folderPath + File.separator + "s_" + uuid + "_" + fileName;
-
-                // 섬네일 생성
-                File thumbnailFile = new File(thumbnailSaveName);
-                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile, 100, 100);
-
-                
-                resultDTOList.add(new UploadResultDTO(fileName, uuid, folderPath));
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+        
+        String fileName="";
+        String folderPath="";
+        if(uploadFiles != null) {
+	        for (MultipartFile uploadFile: uploadFiles) {
+	        	 
+	            // 이미지 파일만 업로드
+	            if (!Objects.requireNonNull(uploadFile.getContentType()).startsWith("image")) {
+	                log.warn("this file is not image type");
+	                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+	            }
+	
+	            // 실제 파일 이름 IE나 Edge는 전체 경로가 들어오므로 => 바뀐 듯 ..
+	            String orginalName = uploadFile.getOriginalFilename();
+	            log.info(">>orginalName:"+orginalName);
+	            assert orginalName != null;
+	//            String fileName = orginalName.substring(orginalName.lastIndexOf("\\") + 1);
+	            String ext = orginalName.substring(orginalName.lastIndexOf(".") + 1);//확장자
+	            fileName = "one."+ext;
+	
+	            log.info("fileName1: "+fileName);
+	            log.info("fileName2: "+fileName.substring(fileName.lastIndexOf(".") + 1));
+	            log.info("fileName3: "+fileName.substring(0,fileName.lastIndexOf(".")));
+	
+	            // 날짜 폴더 생성
+	            folderPath = makeFolder();
+	
+	            // UUID
+	            String uuid = UUID.randomUUID().toString();
+	
+	            // 저장할 파일 이름 중간에 "_"를 이용해서 구현
+	//            String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
+	            String saveName = uploadPath + File.separator + fileName;
+	            log.info(">>>saveName:"+saveName);
+	            Path savePath = Paths.get(saveName);
+	
+	            try {
+	                uploadFile.transferTo(savePath); // 실제 이미지 저장
+	                
+	                // 섬네일 생성
+	                String thumbnailSaveName = uploadPath + File.separator + folderPath + File.separator + "s_" + uuid + "_" + fileName;
+	
+	                // 섬네일 생성
+	//                File thumbnailFile = new File(thumbnailSaveName);
+	//                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile, 100, 100);
+	
+	                
+	                resultDTOList.add(new UploadResultDTO(fileName, folderPath,content));
+	
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	
+	        }
         }
+        resultDTOList.add(new UploadResultDTO(fileName, folderPath,content));
         return new ResponseEntity<>(resultDTOList, HttpStatus.OK);
 
     }
@@ -150,4 +161,17 @@ public class UploadConroller {
         return result;
 
     }
+    public void fileMake(String fileName,String content) {
+		try(
+				//true : 기존 파일에 이어서 작성 (default는 false임)
+				FileWriter fw = new FileWriter("d:/test/"+fileName,false); //이어쓰기 false
+				BufferedWriter bw = new BufferedWriter(fw);
+		) 
+		{
+			bw.write(content); //버퍼에 데이터 입력
+            bw.flush(); //버퍼의 내용을 파일에 쓰기
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
