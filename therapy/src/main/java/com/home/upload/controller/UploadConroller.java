@@ -2,6 +2,7 @@ package com.home.upload.controller;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -12,7 +13,9 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -20,6 +23,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,9 +32,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.home.upload.dto.UploadResultDTO;
+import com.home.util.Util;
 
 import lombok.extern.log4j.Log4j2;
-import net.coobird.thumbnailator.Thumbnailator;
 
 @RestController
 @Log4j2
@@ -45,7 +49,7 @@ public class UploadConroller {
     public ResponseEntity<List<UploadResultDTO>> uploadFile(MultipartFile[] uploadFiles,@RequestParam String content) {
     	log.info(">>>>>>>>>>>Start>>>>>>>>>>>"+content);
     	
-    	fileMake("one.text",content);
+    	Util.fileMake("one.txt",content);
         List<UploadResultDTO> resultDTOList = new ArrayList<>();
         
         String fileName="";
@@ -104,9 +108,9 @@ public class UploadConroller {
         }
         resultDTOList.add(new UploadResultDTO(fileName, folderPath,content));
         return new ResponseEntity<>(resultDTOList, HttpStatus.OK);
-
     }
-
+    
+    
     /*날짜 폴더 생성*/
     private String makeFolder() {
 
@@ -161,17 +165,5 @@ public class UploadConroller {
         return result;
 
     }
-    public void fileMake(String fileName,String content) {
-		try(
-				//true : 기존 파일에 이어서 작성 (default는 false임)
-				FileWriter fw = new FileWriter("d:/test/"+fileName,false); //이어쓰기 false
-				BufferedWriter bw = new BufferedWriter(fw);
-		) 
-		{
-			bw.write(content); //버퍼에 데이터 입력
-            bw.flush(); //버퍼의 내용을 파일에 쓰기
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
+    
 }

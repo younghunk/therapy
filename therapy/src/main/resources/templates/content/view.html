@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko"
+	xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8">
+	<title>uploadEx</title>
+</head>
+
+<body>
+	<table>
+ <th:block th:each="rl : ${resultList}">
+    <tr>
+		<td><img src="/one.png"/></td>
+        <td th:utext="${#strings.replace(rl.txtOne, nlString, '&lt;br /&gt;')}"></td>
+    </tr>
+</th:block>
+	</table>
+</body>
+</html>
