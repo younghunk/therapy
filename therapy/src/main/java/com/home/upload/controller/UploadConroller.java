@@ -47,9 +47,10 @@ public class UploadConroller {
 	/*파일 업로드, 업로드 결과 반환*/
     @PostMapping("/uploadAjax")
     public ResponseEntity<List<UploadResultDTO>> uploadFile(MultipartFile[] uploadFiles,@RequestParam HashMap<String,String> param) {
+    	String uploadPath = new File("").getAbsolutePath() +"/src/main/resources/static/";
     	String content= param.get("content1");
     	log.info(">>>>>>>>>>>Start>>>>>>>>>>>"+param);
-    	Util.fileMake("one.txt",content);
+    	Util.fileMake("one.txt",content,uploadPath);
         List<UploadResultDTO> resultDTOList = new ArrayList<>();
         
         String fileName="";

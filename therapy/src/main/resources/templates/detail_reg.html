@@ -14,28 +14,28 @@
   <div class="container mt-5">
     <form>
       <div class="mb-3">
-        <label for="formFile1" class="form-label">첫번째이미지</label>
-        <input class="form-control" type="file" id="formFile1">
+        <label for="uploadFiles1" class="form-label">첫번째이미지</label>
+        <input class="form-control" type="file" id="uploadFiles1" name="uploadFiles1">
       </div>
       <div class="mb-3">
-        <label for="firstContent1" class="form-label">첫번째이미지설명</label>
-        <textarea class="form-control" id="firstContent1" rows="3"></textarea>
+        <label for="content1" class="form-label">첫번째이미지설명</label>
+        <textarea class="form-control" id="content1" name="content1" rows="3"></textarea>
       </div>
       <div class="mb-3">
-        <label for="formFile2" class="form-label">두번째이미지</label>
-        <input class="form-control" type="file" id="formFile2">
+        <label for="uploadFiles2" class="form-label">두번째이미지</label>
+        <input class="form-control" type="file" id="uploadFiles2" name="uploadFiles2">
       </div>
       <div class="mb-3">
-        <label for="firstContent2" class="form-label">두번째이미지설명</label>
-        <textarea class="form-control" id="firstContent2" rows="3"></textarea>
+        <label for="content2" class="form-label">두번째이미지설명</label>
+        <textarea class="form-control" id="content2" name="content2" rows="3"></textarea>
       </div>
       <div class="mb-3">
-        <label for="formFile3" class="form-label">세번째이미지</label>
-        <input class="form-control" type="file" id="formFile3">
+        <label for="uploadFiles3" class="form-label">세번째이미지</label>
+        <input class="form-control" type="file" id="uploadFiles3" name="uploadFiles3">
       </div>
       <div class="mb-3">
-        <label for="firstContent3" class="form-label">세번째이미지설명</label>
-        <textarea class="form-control" id="firstContent3" rows="3"></textarea>
+        <label for="content3" class="form-label">세번째이미지설명</label>
+        <textarea class="form-control" id="content3" name="content3" rows="3"></textarea>
       </div>
       <div class="mb-3">
         <label for="faq1" class="form-label">자주하는질문1</label>
@@ -61,12 +61,52 @@
         <label for="hp" class="form-label">전화번호</label>
         <input type="text" id="hp" name="hp" class="form-control"/>
       </div>
-      <button type="submit" class="btn btn-primary">등록</button>
+      <button type="button" class="btn btn-primary uploadBtn">등록</button>
     </form>
   </div>
 
   <!-- Optional JavaScript; choose one of the two! -->
   <!-- Option 1: Bootstrap Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+	$('.uploadBtn').click(() => {
+
+            const formData = new FormData();
+
+            const inputFile = $("input[type='file']");
+
+			console.log(">>>>files.length:"+inputFile.length);
+			for(let i = 0; i < inputFile.length; i++) {
+				const file = inputFile[i].files;
+				formData.append("uploadFiles", file[0]);				
+			}
+			 
+			formData.append("content1", $("#content1").val());
+			formData.append("content2", $("#content2").val());
+			formData.append("content3", $("#content3").val());
+			formData.append("faq1", $("#faq1").val());
+			formData.append("faq2", $("#faq2").val());
+			
+            /*실제 업로드 부분*/
+			/*upload ajax*/
+			$.ajax({
+				url: '/uploadAjax',
+				processData: false,
+				contentType: false, // 파일 업로드를 multipart/form-data 타입을 사용하기 위함
+				data: formData,
+				type: 'POST',
+				dataType: 'json',
+				success: result => {
+                    console.log(result);
+					//showUploadedImages(result);
+                },
+				error: (jqXHR, textStatus, errorThrown) => {
+                    console.log(textStatus)
+				}
+			})
+
+		})	
+  </script>
 </body>
 </html>
