@@ -53,4 +53,14 @@ public class TestController {
         
         return "content/view";
     }
+	@GetMapping("/detail_reg")
+	public String detail_reg() {
+		
+		return "/detail_reg";
+	}
+	@GetMapping("/index")
+	public String index() {
+		
+		return "/index";
+	}
 }
