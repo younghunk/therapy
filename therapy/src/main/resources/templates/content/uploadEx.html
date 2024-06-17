@@ -8,9 +8,13 @@
 
 <body>
 <form name="frm" id-"frm" method="post" enctype="multipart/form-data">
-	<input name="uploadFiles" type="file" multiple>
+	<input name="uploadFiles1" type="file" multiple="false">
+	<input name="uploadFiles2" type="file" multiple="false">
+	<input name="uploadFiles3" type="file" multiple="false">
 	<button type="button" class="uploadBtn">Upload</button>
-	<br/><textarea id="content" name="content"></textarea>
+	<br/><textarea id="content1" name="content1"></textarea>
+	<br/><textarea id="content2" name="content2"></textarea>
+	<br/><textarea id="content3" name="content3"></textarea>
 	<div class="uploadResult"></div>
 	<div class="uploadResultThum"></div>
 </form>
@@ -24,19 +28,26 @@
             const formData = new FormData();
 
             const inputFile = $("input[type='file']");
-            const content = $("#content").val();
 
-			const files = inputFile[0].files;
-
+			console.log(">>>>files.length:"+inputFile.length);
+			for(let i = 0; i < inputFile.length; i++) {
+				const file = inputFile[i].files;
+				console.log(">>>"+i+":"+file);
+				formData.append("uploadFiles", file[0]);				
+			}
+			/*const files = inputFile[0].files;
             for(let i = 0; i < files.length; i++) {
                 console.log(files[i]);
                 formData.append("uploadFiles", files[i]);
                 //console.log(formData);
-			}
-			formData.append("content", content);
-			for (let key of formData.keys()) {
+			}*/
+			formData.append("content1", $("#content1").val());
+			formData.append("content2", $("#content2").val());
+			formData.append("content3", $("#content3").val());
+			
+			/*for (let key of formData.keys()) {
 				console.log(key, ":", formData.get(key));
-			}
+			}*/
 			const showUploadedImages = arr => {
                 console.log(arr);
 

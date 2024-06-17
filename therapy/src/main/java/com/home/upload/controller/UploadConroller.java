@@ -46,15 +46,17 @@ public class UploadConroller {
 	
 	/*파일 업로드, 업로드 결과 반환*/
     @PostMapping("/uploadAjax")
-    public ResponseEntity<List<UploadResultDTO>> uploadFile(MultipartFile[] uploadFiles,@RequestParam String content) {
-    	log.info(">>>>>>>>>>>Start>>>>>>>>>>>"+content);
-    	
+    public ResponseEntity<List<UploadResultDTO>> uploadFile(MultipartFile[] uploadFiles,@RequestParam HashMap<String,String> param) {
+    	String content= param.get("content1");
+    	log.info(">>>>>>>>>>>Start>>>>>>>>>>>"+param);
     	Util.fileMake("one.txt",content);
         List<UploadResultDTO> resultDTOList = new ArrayList<>();
         
         String fileName="";
         String folderPath="";
+        log.info(">>>>uploadFiles:"+uploadFiles);
         if(uploadFiles != null) {
+        	int cnt=1;
 	        for (MultipartFile uploadFile: uploadFiles) {
 	        	 
 	            // 이미지 파일만 업로드
@@ -69,8 +71,8 @@ public class UploadConroller {
 	            assert orginalName != null;
 	//            String fileName = orginalName.substring(orginalName.lastIndexOf("\\") + 1);
 	            String ext = orginalName.substring(orginalName.lastIndexOf(".") + 1);//확장자
-	            fileName = "one."+ext;
-	
+	            fileName = cnt+"."+ext; cnt++;
+	            	
 	            log.info("fileName1: "+fileName);
 	            log.info("fileName2: "+fileName.substring(fileName.lastIndexOf(".") + 1));
 	            log.info("fileName3: "+fileName.substring(0,fileName.lastIndexOf(".")));
@@ -83,10 +85,11 @@ public class UploadConroller {
 	
 	            // 저장할 파일 이름 중간에 "_"를 이용해서 구현
 	//            String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
-	            String saveName = uploadPath + File.separator + fileName;
+	            //String saveName = uploadPath + File.separator + fileName;
+	            String saveName = new File("").getAbsolutePath() +"/src/main/resources/static/"+ fileName;
 	            log.info(">>>saveName:"+saveName);
 	            Path savePath = Paths.get(saveName);
-	
+	            log.info(">>>>savePath:"+savePath.toString());
 	            try {
 	                uploadFile.transferTo(savePath); // 실제 이미지 저장
 	                
@@ -142,8 +145,10 @@ public class UploadConroller {
             String srcFileName = URLDecoder.decode(fileName, StandardCharsets.UTF_8);
 
             log.info("fileName: " + srcFileName);
-
-            File file = new File(uploadPath + File.separator + srcFileName);
+            	
+            String filePath = new File("").getAbsolutePath() +"/src/main/resources/static/";
+            
+            File file = new File(filePath + srcFileName);
 
             log.info("file: " + file);
 
