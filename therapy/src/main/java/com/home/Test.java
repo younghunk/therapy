@@ -1,6 +1,5 @@
 package com.home;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,6 +7,9 @@ import java.io.InputStream;
 
 import org.json.JSONObject;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,7 +25,8 @@ public class Test {
 		 System.out.println(txt);
 		 Test t= new Test();
 		 //t.jsonFileWrite();
-		 t.loadJsonData();
+//		 t.loadJsonData();
+		 t.sendEmail();
 	}
 	
 	public void loadJsonData() throws IOException {
@@ -58,5 +61,15 @@ public class Test {
         } catch (IOException e) {
             e.printStackTrace();
         }
+	}
+	public void sendEmail() {
+		JavaMailSender mailSender = new JavaMailSenderImpl();
+		SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo("hunkim5@naver.com");
+        message.setFrom("help@apply.com");
+        message.setSubject("제목2");
+        message.setText("본문");
+
+        mailSender.send(message);
 	}
 }
