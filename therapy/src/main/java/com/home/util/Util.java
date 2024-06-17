@@ -4,6 +4,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONObject;
 
 public class Util {
 	
@@ -36,5 +41,25 @@ public class Util {
 			e.printStackTrace();
 		}
 		return txt;
+	}
+    public static void jsonFileWrite(HashMap<String,String> param) {
+		// JSON 객체 생성
+        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("key1", "value1");
+//        jsonObject.put("key2", "value2");
+        for( Map.Entry<String, String> entry : param.entrySet() ){
+        	String strKey = entry.getKey();
+        	String strValue = entry.getValue();
+        	jsonObject.put(strKey, strValue);
+        }
+        
+        // 파일에 JSON 객체 쓰기
+        try (FileWriter file = new FileWriter("src/main/resources/output.json")) {
+            file.write(jsonObject.toString());
+            System.out.println("Successfully Copied JSON Object to File...");
+            System.out.println("\nJSON Object: " + jsonObject);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
 }

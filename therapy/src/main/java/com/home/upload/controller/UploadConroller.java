@@ -51,8 +51,11 @@ public class UploadConroller {
     	String content= param.get("content1");
     	log.info(">>>>>>>>>>>Start>>>>>>>>>>>"+param);
     	Util.fileMake("one.txt",content,uploadPath);
+    	
+    	//json file write
+    	Util.jsonFileWrite(param);
+    	
         List<UploadResultDTO> resultDTOList = new ArrayList<>();
-        
         String fileName="";
         String folderPath="";
         log.info(">>>>uploadFiles:"+uploadFiles);

@@ -66,9 +66,16 @@ public class TestController {
 		
 		return "/detail_reg";
 	}
-	@GetMapping("/index")
-	public String index() {
-		
+	@GetMapping("/index1")
+	public String index(@RequestParam Map<String, Object> params,Model model) {
+		String uploadPath = new File("").getAbsolutePath() +"/src/main/resources/static/";
+        HashMap<String,Object> content1 = new HashMap<String,Object>();
+        String txtOne = Util.fileRead("one.txt",uploadPath);
+        log.info(">>content:"+txtOne);
+        content1.put("txtOne", txtOne);
+        String nlString = System.getProperty("line.separator").toString();
+        model.addAttribute("content1", content1);
+        model.addAttribute("nlString", nlString);
 		return "/index";
 	}
 }
