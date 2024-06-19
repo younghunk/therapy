@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.home.upload.dto.RegDataDto;
 import com.home.util.Util;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -66,15 +67,20 @@ public class TestController {
 		
 		return "/detail_reg";
 	}
-	@GetMapping("/index1")
-	public String index(@RequestParam Map<String, Object> params,Model model) {
+	@GetMapping("/index")
+	public String index(@RequestParam Map<String, Object> params,Model model) throws IOException {
 		String uploadPath = new File("").getAbsolutePath() +"/src/main/resources/static/";
         HashMap<String,Object> content1 = new HashMap<String,Object>();
         String txtOne = Util.fileRead("one.txt",uploadPath);
         log.info(">>content:"+txtOne);
         content1.put("txtOne", txtOne);
-        String nlString = System.getProperty("line.separator").toString();
         model.addAttribute("content1", content1);
+        
+        RegDataDto data = Util.loadJsonData();
+        log.info(">>>data:"+data.toString());
+        model.addAttribute("data", data);
+        
+        String nlString = System.getProperty("line.separator").toString();
         model.addAttribute("nlString", nlString);
 		return "/index";
 	}

@@ -1,14 +1,19 @@
 package com.home.util;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONObject;
+import org.springframework.core.io.ClassPathResource;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.home.TestJsonDto;
+import com.home.upload.dto.RegDataDto;
 
 public class Util {
 	
@@ -62,4 +67,11 @@ public class Util {
             e.printStackTrace();
         }
 	}
+    public static RegDataDto loadJsonData() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        InputStream jsonFile1 = new ClassPathResource("output.json").getInputStream();
+        RegDataDto tjdto = objectMapper.readValue(jsonFile1, RegDataDto.class);
+          
+        return tjdto;
+    }
 }
