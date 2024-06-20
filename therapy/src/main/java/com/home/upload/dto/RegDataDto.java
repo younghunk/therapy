@@ -153,7 +153,7 @@ public class RegDataDto implements Serializable{
 	}
 	@Override
     public String toString() {
-        return "UserDTO{" +
+        return "RegDataDto{" +
         		"siteName:"+siteName+'\'' +   
 		        "content1:"+content1+ '\'' +  
 		        "content2:"+   content2+ '\'' +  

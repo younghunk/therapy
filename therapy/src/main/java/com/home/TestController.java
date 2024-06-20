@@ -63,8 +63,20 @@ public class TestController {
         return "content/view";
     }
 	@GetMapping("/detail_reg")
-	public String detail_reg() {
+	public String detail_reg(Model model) throws IOException{
 		
+		RegDataDto data = Util.loadJsonData();
+        log.info(">>>data:"+data.toString());
+        log.info(">>>data:"+data.getContent1());
+        
+        HashMap<String,String> data2= new HashMap<String,String>();
+        data2.put("content1", data.getContent1());
+        model.addAttribute("data2", data2);
+        model.addAttribute("data", data);
+        
+        String nlString = System.getProperty("line.separator").toString();
+        model.addAttribute("nlString", nlString);
+        
 		return "/detail_reg";
 	}
 	@GetMapping("/index")

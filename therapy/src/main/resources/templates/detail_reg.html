@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko"
+	xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -15,7 +17,7 @@
     <form>
 	  <div class="mb-3">
         <label for="siteName" class="form-label">사이트명</label>
-        <input type="text" id="siteName" name="siteName" class="form-control"/>
+        <input type="text" id="siteName" name="siteName" class="form-control" th:value="${data.siteName}"/>
       </div>
       <div class="mb-3">
         <label for="uploadFiles1" class="form-label">첫번째이미지</label>
@@ -23,7 +25,7 @@
       </div>
       <div class="mb-3">
         <label for="content1" class="form-label">첫번째이미지설명</label>
-        <textarea class="form-control" id="content1" name="content1" rows="3"></textarea>
+        <textarea class="form-control" id="content1" name="content1" rows="3" th:text="${data.content1}"></textarea>
       </div>
       <div class="mb-3">
         <label for="uploadFiles2" class="form-label">두번째이미지</label>
@@ -31,7 +33,7 @@
       </div>
       <div class="mb-3">
         <label for="content2" class="form-label">두번째이미지설명</label>
-        <textarea class="form-control" id="content2" name="content2" rows="3"></textarea>
+        <textarea class="form-control" id="content2" name="content2" rows="3" th:text="${data.content2}"></textarea>
       </div>
       <div class="mb-3">
         <label for="uploadFiles3" class="form-label">세번째이미지</label>
@@ -39,71 +41,71 @@
       </div>
       <div class="mb-3">
         <label for="content3" class="form-label">세번째이미지설명</label>
-        <textarea class="form-control" id="content3" name="content3" rows="3"></textarea>
+        <textarea class="form-control" id="content3" name="content3" rows="3" th:text="${data.content3}"></textarea>
       </div>
       <div class="mb-3">
         <label for="faq1" class="form-label">자주하는질문1</label>
-        <input type="text" id="faq1" name="faq1" class="form-control"/>
+        <input type="text" id="faq1" name="faq1" class="form-control" th:value="${data.faq1}"/>
       </div>
       <div class="mb-3">
         <label for="faqaw1" class="form-label">자주하는질문답1</label>
-        <input type="text" id="faqaw1" name="faqaw1" class="form-control"/>
+        <input type="text" id="faqaw1" name="faqaw1" class="form-control"  th:value="${data.faqaw1}"/>
       </div>
       <div class="mb-3">
         <label for="faq2" class="form-label">자주하는질문2</label>
-        <input type="text" id="faq2" name="faq2" class="form-control"/>
+        <input type="text" id="faq2" name="faq2" class="form-control" th:value="${data.faq2}"/>
       </div>
       <div class="mb-3">
         <label for="faqaw2" class="form-label">자주하는질문답2</label>
-        <input type="text" id="faqaw2" name="faqaw2" class="form-control"/>
+        <input type="text" id="faqaw2" name="faqaw2" class="form-control" th:value="${data.faqaw2}"/>
       </div>
       <div class="mb-3">
         <label for="faq3" class="form-label">자주하는질문3</label>
-        <input type="text" id="faq3" name="faq3" class="form-control"/>
+        <input type="text" id="faq3" name="faq3" class="form-control" th:value="${data.faq3}"/>
       </div>
       <div class="mb-3">
         <label for="faqaw3" class="form-label">자주하는질문답3</label>
-        <input type="text" id="faqaw3" name="faqaw3" class="form-control"/>
+        <input type="text" id="faqaw3" name="faqaw3" class="form-control" th:value="${data.faqaw3}"/>
       </div>
       <div class="mb-3">
         <label for="faq4" class="form-label">자주하는질문4</label>
-        <input type="text" id="faq4" name="faq4" class="form-control"/>
+        <input type="text" id="faq4" name="faq4" class="form-control" th:value="${data.faq4}"/>
       </div>
       <div class="mb-3">
         <label for="faqaw4" class="form-label">자주하는질문답4</label>
-        <input type="text" id="faqaw4" name="faqaw4" class="form-control"/>
+        <input type="text" id="faqaw4" name="faqaw4" class="form-control"  th:value="${data.faqaw4}"/>
       </div>
       <div class="mb-3">
         <label for="faq5" class="form-label">자주하는질문5</label>
-        <input type="text" id="faq5" name="faq5" class="form-control"/>
+        <input type="text" id="faq5" name="faq5" class="form-control" th:value="${data.faq5}"/>
       </div>
       <div class="mb-3">
         <label for="faqaw5" class="form-label">자주하는질문답5</label>
-        <input type="text" id="faqaw5" name="faqaw5" class="form-control"/>
+        <input type="text" id="faqaw5" name="faqaw5" class="form-control" th:value="${data.faqaw5}"/>
       </div>
       <div class="mb-3">
         <label for="faq6" class="form-label">자주하는질문6</label>
-        <input type="text" id="faq6" name="faq6" class="form-control"/>
+        <input type="text" id="faq6" name="faq6" class="form-control" th:value="${data.faq6}"/>
       </div>
       <div class="mb-3">
         <label for="faqaw6" class="form-label">자주하는질문답6</label>
-        <input type="text" id="faqaw6" name="faqaw6" class="form-control"/>
+        <input type="text" id="faqaw6" name="faqaw6" class="form-control" th:value="${data.faqaw6}"/>
       </div>
       <div class="mb-3">
         <label for="hp" class="form-label">전화번호</label>
-        <input type="text" id="hp" name="hp" class="form-control"/>
+        <input type="text" id="hp" name="hp" class="form-control" th:value="${data.hp}"/>
       </div>
       <div class="mb-3">
         <label for="kakao" class="form-label">카카오톡아이디</label>
-        <input type="text" id="kakao" name="kakao" class="form-control"/>
+        <input type="text" id="kakao" name="kakao" class="form-control" th:value="${data.kakao}"/>
       </div>
       <div class="mb-3">
         <label for="line" class="form-label">라인아이디</label>
-        <input type="text" id="line" name="line" class="form-control"/>
+        <input type="text" id="line" name="line" class="form-control" th:value="${data.line}"/>
       </div>
       <div class="mb-3">
         <label for="telegram" class="form-label">텔레그램아이디</label>
-        <input type="text" id="telegram" name="telegram" class="form-control"/>
+        <input type="text" id="telegram" name="telegram" class="form-control" th:value="${data.telegram}"/>
       </div>
       <button type="button" class="btn btn-primary uploadBtn">등록</button>
     </form>
@@ -126,11 +128,26 @@
 				formData.append("uploadFiles", file[0]);				
 			}
 			 
+			formData.append("siteName", $("#siteName").val());
 			formData.append("content1", $("#content1").val());
 			formData.append("content2", $("#content2").val());
 			formData.append("content3", $("#content3").val());
 			formData.append("faq1", $("#faq1").val());
 			formData.append("faq2", $("#faq2").val());
+			formData.append("faq3", $("#faq3").val());
+			formData.append("faq4", $("#faq4").val());
+			formData.append("faq5", $("#faq5").val());
+			formData.append("faq6", $("#faq6").val());
+			formData.append("faq1", $("#faq7").val());
+			formData.append("faq2", $("#faq2").val());
+			formData.append("faq3", $("#faq3").val());
+			formData.append("faq4", $("#faq4").val());
+			formData.append("faq5", $("#faq5").val());
+			formData.append("faq6", $("#faq6").val());
+			formData.append("hp", $("#hp").val());
+			formData.append("kakao", $("#kakao").val());
+			formData.append("line", $("#line").val());
+			formData.append("telegram", $("#telegram").val());
 			
             /*실제 업로드 부분*/
 			/*upload ajax*/
