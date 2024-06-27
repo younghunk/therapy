@@ -40,8 +40,6 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class UploadConroller {
 	
-	@Value("${upload.path}")
-	private String uploadPath;
 	
 	
 	/*파일 업로드, 업로드 결과 반환*/
@@ -82,7 +80,7 @@ public class UploadConroller {
 	            log.info("fileName3: "+fileName.substring(0,fileName.lastIndexOf(".")));
 	
 	            // 날짜 폴더 생성
-	            folderPath = makeFolder();
+	            //folderPath = makeFolder();
 	
 	            // UUID
 	            String uuid = UUID.randomUUID().toString();
@@ -119,25 +117,25 @@ public class UploadConroller {
     
     
     /*날짜 폴더 생성*/
-    private String makeFolder() {
-
-        String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-
-        String folderPath = str.replace("/", File.separator);
-
-        // make folder --------
-        File uploadPathFolder = new File(uploadPath, folderPath);
-
-        if(!uploadPathFolder.exists()) {
-            boolean mkdirs = uploadPathFolder.mkdirs();
-            log.info("-------------------makeFolder------------------");
-            log.info("uploadPathFolder.exists(): "+uploadPathFolder.exists());
-            log.info("mkdirs: "+mkdirs);
-        }
-
-        return folderPath;
-
-    }
+//    private String makeFolder() {
+//
+//        String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+//
+//        String folderPath = str.replace("/", File.separator);
+//
+//        // make folder --------
+//        File uploadPathFolder = new File(uploadPath, folderPath);
+//
+//        if(!uploadPathFolder.exists()) {
+//            boolean mkdirs = uploadPathFolder.mkdirs();
+//            log.info("-------------------makeFolder------------------");
+//            log.info("uploadPathFolder.exists(): "+uploadPathFolder.exists());
+//            log.info("mkdirs: "+mkdirs);
+//        }
+//
+//        return folderPath;
+//
+//    }
     
     /*업로드 이미지 출력하기*/
     @GetMapping("/display")

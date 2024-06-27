@@ -26,15 +26,11 @@ import org.springframework.core.io.Resource;
 @Log4j2
 public class TestController {
 
-	@Value("${upload.path}")
-	private String uploadPath;
-	
 	@Value("classpath:/")
 	Resource resourceFile;
 	
 	@RequestMapping(value = "/home", method=RequestMethod.GET)
 	public String goHome(HttpServletRequest request) throws IOException {
-		System.out.println(">>>>>>>>>>uploadPath:"+uploadPath);
 		System.out.println(">>>>>>>>>>uploadPath:"+resourceFile.getURI().toString());
 		System.out.println(">>>>>>>>>>uploadPath:"+resourceFile.getURL().toString());
 		return "content/home";
