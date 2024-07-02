@@ -43,9 +43,6 @@ public class UploadConroller {
     	log.info(">>>>>>>>>>>Start>>>>>>>>>>>"+param);
     	Util.fileMake("one.txt",content,uploadPath);
     	
-    	//json file write
-    	Util.jsonFileWrite(param);
-    	
         List<UploadResultDTO> resultDTOList = new ArrayList<>();
         String fileName="";
         String folderPath="";
@@ -66,8 +63,8 @@ public class UploadConroller {
 	            assert orginalName != null;
 	//            String fileName = orginalName.substring(orginalName.lastIndexOf("\\") + 1);
 	            String ext = orginalName.substring(orginalName.lastIndexOf(".") + 1);//확장자
-	            fileName = cnt+"."+ext; cnt++;
-	            	
+	            fileName= cnt+"."+ext; cnt++;
+	            param.put("fileName"+cnt, fileName);	
 	            log.info("fileName1: "+fileName);
 	            log.info("fileName2: "+fileName.substring(fileName.lastIndexOf(".") + 1));
 	            log.info("fileName3: "+fileName.substring(0,fileName.lastIndexOf(".")));
@@ -97,10 +94,11 @@ public class UploadConroller {
 	
 	            } catch (IOException e) {
 	                e.printStackTrace();
-	            }
-	
+	            }	
 	        }
         }
+        //json file write
+    	Util.jsonFileWrite(param);
         resultDTOList.add(new UploadResultDTO(fileName, folderPath,content));
         
         Util.restartServer(req);
