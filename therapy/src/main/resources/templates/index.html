@@ -45,14 +45,14 @@
 
       <a href="index.html" class="logo d-flex align-items-center me-auto">
         <img src="assets/img/logo.png" alt="">
-        <h1 class="sitename">사이트명</h1>
+        <h1 class="sitename" th:text="${data.siteName}">사이트명</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="index.html#hero" class="active">Home</a></li>
           <li><a href="index.html#about" class="">About</a></li>
-          <li><a href="index.html#features" class="">Features</a></li>
+          <li><a href="index.html#features-details" class="">Features</a></li>
           <li><a href="index.html#services" class="">Services</a></li>
           <li><a href="index.html#pricing" class="">Pricing</a></li>
           <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -89,9 +89,6 @@
       </div>
       <div class="container text-center">
         <div class="d-flex flex-column justify-content-center align-items-center">
-          
-          
-          
           <img src="assets/img/hero-services-img.webp" class="img-fluid hero-img aos-init aos-animate" alt="" data-aos="zoom-out" data-aos-delay="300">
         </div>
       </div>
@@ -112,28 +109,24 @@
 
     <!-- Features Details Section -->
     <section id="features-details" class="features-details section">
-
       <div class="container">
-
         <div class="row gy-4 justify-content-between features-item">
-
           <div class="col-lg-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
             <img src="1.jpg" class="img-fluid" alt="">
           </div>
-
           <div class="col-lg-5 d-flex align-items-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
             <div class="content">
-				<p th:utext="${#strings.replace(content1.txtOne, nlString, '&lt;br /&gt;')}"></p>
+				<!--p th:utext="${#strings.replace(content1.txtOne, nlString, '&lt;br /&gt;')}"></p-->
+				<p th:utext="${#strings.replace(data.content1, nlString, '&lt;br /&gt;')}"></p>
             </div>
           </div>
-
         </div><!-- Features Item -->
 
         <div class="row gy-4 justify-content-between features-item">
 
           <div class="col-lg-5 d-flex align-items-center order-2 order-lg-1 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
             <div class="content">
-			<p></p>              
+			<p th:utext="${#strings.replace(data.content2, nlString, '&lt;br /&gt;')}"></p>
             </div>
 
           </div>
@@ -141,9 +134,7 @@
           <div class="col-lg-6 order-1 order-lg-2 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
             <img src="2.jpg" class="img-fluid" alt="">
           </div>
-
         </div><!-- Features Item -->
-
       </div>
 
     </section><!-- /Features Details Section -->
@@ -153,21 +144,13 @@
 
     <!-- More Features Section -->
     <section id="more-features" class="more-features section">
-
       <div class="container">
-
         <div class="row justify-content-around gy-4">
-
-          
-
           <div class="col-lg-4">
             <img src="https://lh3.googleusercontent.com/YTTKtgVtJnlWV5GlCqyM3OG0SFOPwKft68Ak86mmNq9V4-rBE-hxd5flIDXnQZZ5UeTaG8A9xPsWZ6gX3JflbGp1OslsyhXuoAhbzZBoUork7EgdBaBt6w" class="img-fluid" alt="">
           </div>
-
         </div>
-
       </div>
-
     </section><!-- /More Features Section -->
 
     <!-- Pricing Section -->
@@ -190,61 +173,55 @@
             <div class="faq-container">
 
               <div class="faq-item">
-                <h3>첫번째 질문입니다.첫번째 질문입니다.첫번째 질문입니다.첫번째 질문입니다.</h3>
+                <h3 th:text="${data.faq1}"></h3>
                 <div class="faq-content">
-                  <p>첫번째 답변입니다.첫번째 답변입니다.첫번째 답변입니다.첫번째 답변입니다.첫번째 답변입니다.첫번째 답변입니다.</p>
+                  <p th:text="${data.faqaw1}"></p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->
 
               <div class="faq-item faq-active">
-                <h3>두번째 질문입니다.두번째 질문입니다.두번째 질문입니다.두번째 질문입니다.두번째 질문입니다.</h3>
+                <h3 th:text="${data.faq2}"></h3>
                 <div class="faq-content">
-                  <p>두번째 답변입니다.두번째 답변입니다.두번째 답변입니다.두번째 답변입니다.두번째 답변입니다.두번째 답변입니다.두번째 답변입니다.두번째 답변입니다.두번째 답변입니다.두번째 답변입니다.두번째 답변입니다.두번째 답변입니다.두번째 답변입니다.두번째 답변입니다.두번째 답변입니다.두번째 답변입니다.</p>
+                  <p th:text="${data.faqaw2}"></p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+              <div class="faq-item">
+                <h3 th:text="${data.faq3}"></h3>
+                <div class="faq-content">
+                  <p th:text="${data.faqaw3}"></p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->
 
               <div class="faq-item">
-                <h3>Dolor sit amet consectetur adipiscing elit pellentesque?</h3>
+                <h3 th:text="${data.faq4}"></h3>
                 <div class="faq-content">
-                  <p>Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis</p>
+                  <p th:text="${data.faqaw4}"></p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->
 
               <div class="faq-item">
-                <h3>Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?</h3>
+                <h3 th:text="${data.faq5}"></h3>
                 <div class="faq-content">
-                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
+                  <p th:text="${data.faqaw5}"></p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->
 
               <div class="faq-item">
-                <h3>Tempus quam pellentesque nec nam aliquam sem et tortor?</h3>
+                <h3 th:text="${data.faq6}"></h3>
                 <div class="faq-content">
-                  <p>Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in</p>
+                  <p th:text="${data.faqaw6}"></p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3>Perspiciatis quod quo quos nulla quo illum ullam?</h3>
-                <div class="faq-content">
-                  <p>Enim ea facilis quaerat voluptas quidem et dolorem. Quis et consequatur non sed in suscipit sequi. Distinctio ipsam dolore et.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
             </div>
-
           </div><!-- End Faq Column-->
-
         </div>
-
       </div>
-
     </section><!-- /Faq Section -->
 
     <!-- Testimonials Section -->
@@ -252,21 +229,17 @@
 
     <!-- Contact Section -->
     <section id="contact" class="contact section">
-
       <!-- Section Title -->
       <div class="container section-title aos-init aos-animate" data-aos="fade-up">
         <h2>Contact</h2>
       </div><!-- End Section Title -->
-
       <div class="container aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
-
         <div class="row gy-4">
-
           <div class="col-lg-3 col-md-6">
             <div class="info-item d-flex flex-column justify-content-center align-items-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
               <i class="bi bi-telephone"></i>
               <h3>전화문의</h3>
-              <p>010-1234-5678</p>
+              <p th:text="${data.hp}"></p>
             </div>
           </div><!-- End Info Item -->
           
@@ -274,7 +247,7 @@
             <div class="info-item d-flex flex-column justify-content-center align-items-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
               <i class="bi bi-envelope"></i>
               <h3>카카오문의</h3>
-              <p>abcd</p>
+              <p th:text="${data.kakao}"></p>
             </div>
           </div><!-- End Info Item -->
 
@@ -282,7 +255,7 @@
             <div class="info-item d-flex flex-column justify-content-center align-items-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
               <i class="bi bi-envelope"></i>
               <h3>라인문의</h3>
-              <p>abcdef</p>
+              <p th:text="${data.line}"></p>
             </div>
           </div><!-- End Info Item -->
 
@@ -290,10 +263,9 @@
             <div class="info-item d-flex flex-column justify-content-center align-items-center aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
               <i class="bi bi-telegram"></i>
               <h3>텔레그램문의</h3>
-              <p>teltelgram</p>
+              <p th:text="${data.telegram}"></p>
             </div>
           </div><!-- End Info Item -->
-
         </div>
 
         <div class="row gy-4 mt-1">

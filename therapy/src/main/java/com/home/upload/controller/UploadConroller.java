@@ -1,29 +1,21 @@
 package com.home.upload.controller;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.home.upload.dto.UploadResultDTO;
 import com.home.util.Util;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
@@ -44,7 +37,7 @@ public class UploadConroller {
 	
 	/*파일 업로드, 업로드 결과 반환*/
     @PostMapping("/uploadAjax")
-    public ResponseEntity<List<UploadResultDTO>> uploadFile(MultipartFile[] uploadFiles,@RequestParam HashMap<String,String> param) {
+    public ResponseEntity<List<UploadResultDTO>> uploadFile(MultipartFile[] uploadFiles,@RequestParam HashMap<String,String> param,HttpServletRequest req) throws IOException {
     	String uploadPath = new File("").getAbsolutePath() +"/src/main/resources/static/";
     	String content= param.get("content1");
     	log.info(">>>>>>>>>>>Start>>>>>>>>>>>"+param);
@@ -96,13 +89,10 @@ public class UploadConroller {
 	                uploadFile.transferTo(savePath); // 실제 이미지 저장
 	                
 	                // 섬네일 생성
-	                String thumbnailSaveName = uploadPath + File.separator + folderPath + File.separator + "s_" + uuid + "_" + fileName;
-	
+	                String thumbnailSaveName = uploadPath + File.separator + folderPath + File.separator + "s_" + uuid + "_" + fileName;	
 	                // 섬네일 생성
 	//                File thumbnailFile = new File(thumbnailSaveName);
-	//                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile, 100, 100);
-	
-	                
+	//                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile, 100, 100);	                
 	                resultDTOList.add(new UploadResultDTO(fileName, folderPath,content));
 	
 	            } catch (IOException e) {
@@ -112,6 +102,8 @@ public class UploadConroller {
 	        }
         }
         resultDTOList.add(new UploadResultDTO(fileName, folderPath,content));
+        
+        Util.restartServer(req);
         return new ResponseEntity<>(resultDTOList, HttpStatus.OK);
     }
     

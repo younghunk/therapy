@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +16,8 @@ import org.springframework.core.io.ClassPathResource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.home.TestJsonDto;
 import com.home.upload.dto.RegDataDto;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 public class Util {
 	
@@ -73,5 +77,19 @@ public class Util {
         RegDataDto tjdto = objectMapper.readValue(jsonFile1, RegDataDto.class);
           
         return tjdto;
+    }
+    public static void restartServer(HttpServletRequest req) throws IOException {
+    	String urls = "";
+    	if(req.isSecure()) {
+    		urls = "https://";
+    	}else {
+    		urls = "http://";
+    	}
+    	urls +=req.getServerName()+":"+req.getServerPort()+"/actuator/restart";
+    	
+    	URL url = new URL(urls);
+    	HttpURLConnection con = (HttpURLConnection) url.openConnection();
+    	con.setRequestMethod("POST");
+    	con.setDoOutput(true);
     }
 }

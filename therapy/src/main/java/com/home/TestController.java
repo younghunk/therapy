@@ -2,6 +2,7 @@ package com.home;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -91,5 +92,17 @@ public class TestController {
         String nlString = System.getProperty("line.separator").toString();
         model.addAttribute("nlString", nlString);
 		return "/index";
+	}
+	@RequestMapping("/test")
+	public void test(HttpServletRequest req) throws IOException {
+		log.info(">>>>url:"+req.getServerName()); 
+		log.info(">>>>url:"+req.getServerPort()); 
+		log.info(">>>>url:"+req.getMethod()); 
+		log.info(">>>>url:"+req.getLocalAddr()); 
+		log.info(">>>>url:"+req.getHeader("Referer")); 
+		log.info(">>>>url:"+req.getAuthType()); 
+		log.info(">>>>url:"+req.getProtocol()); 
+		log.info(">>>>url:"+req.isSecure()); 
+		
 	}
 }
