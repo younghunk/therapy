@@ -51,7 +51,7 @@ public class UploadConroller {
         String folderPath="";
         log.info(">>>>uploadFiles:"+uploadFiles);
         if(uploadFiles != null) {
-        	int cnt=1;
+        	int cnt=0;
 	        for (MultipartFile uploadFile: uploadFiles) {
 	        	 
 	            // 이미지 파일만 업로드
