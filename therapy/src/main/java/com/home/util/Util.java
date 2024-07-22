@@ -1,10 +1,12 @@
 package com.home.util;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -14,7 +16,6 @@ import org.json.JSONObject;
 import org.springframework.core.io.ClassPathResource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.home.TestJsonDto;
 import com.home.upload.dto.RegDataDto;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -86,10 +87,25 @@ public class Util {
     		urls = "http://";
     	}
     	urls +=req.getServerName()+":"+req.getServerPort()+"/actuator/restart";
-    	
+    	System.out.println(">>>>>urls:"+urls);
     	URL url = new URL(urls);
     	HttpURLConnection con = (HttpURLConnection) url.openConnection();
     	con.setRequestMethod("POST");
     	con.setDoOutput(true);
+    	con.setRequestProperty("Content-Type", "application/json");
+    	
+    	int responseCode = con.getResponseCode();
+    	System.out.println("Response Code : " + responseCode); // 응답 코드를 콘솔에 출력
+    	
+    	BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream())); // 서버로부터의 응답을 읽기 위한 BufferedReader를 생성
+        String inputLine;
+        StringBuffer response = new StringBuffer(); // 서버 응답을 저장할 StringBuffer 객체를 생성
+
+        while ((inputLine = in.readLine()) != null) { // 서버 응답의 끝까지 한 줄씩 읽어 들임
+            response.append(inputLine); // 읽은 데이터를 StringBuffer 객체에 추가
+        }
+        in.close(); // BufferedReader를 닫아 리소스를 해제
+
+
     }
 }

@@ -24,7 +24,63 @@ public class RegDataDto implements Serializable{
 	String line;
 	String telegram;
 	String uploadFiles;
+	String menu1;
+	String menu2;
+	String menu3;
+	String menu4;
+	String fileName1;
+	String fileName2;
+	String fileName3;
+	String fileName4;
 	
+	public void setFileName1(String fileName1) {
+		this.fileName1 = fileName1;
+	}
+	public String getFileName1() {
+		return fileName1;
+	}
+	public void setFileName2(String fileName2) {
+		this.fileName2 = fileName2;
+	}
+	public String getFileName2() {
+		return fileName2;
+	}
+	public void setFileName3(String fileName3) {
+		this.fileName3 = fileName3;
+	}
+	public String getFileName3() {
+		return fileName3;
+	}
+	public void setFileName4(String fileName4) {
+		this.fileName4 = fileName4;
+	}
+	public String getFileName4() {
+		return fileName4;
+	}
+	public void setMenu1(String menu1) {
+		this.menu1 = menu1;
+	}
+	public String getMenu1() {
+		return menu1;
+	}
+	public void setMenu2(String menu2) {
+		this.menu2 = menu2;
+	}
+	public String getMenu2() {
+		return menu2;
+	}
+	public void setMenu3(String menu3) {
+		this.menu3 = menu3;
+	}
+	public String getMenu3() {
+		return menu3;
+	}
+	public void setMenu4(String menu4) {
+		this.menu4 = menu4;
+	}
+	public String getMenu4() {
+		return menu4;
+	}
 	public String getUploadFiles() {
 		return uploadFiles;
 	}
